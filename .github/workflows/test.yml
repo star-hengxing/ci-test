@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container: pagmo2/llvm_manylinux_2_28_x86_64
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Setup xmake
@@ -20,9 +19,10 @@ jobs:
 
       - name: Package
         run: |
-          export PATH=$PATH:/usr/local/bin
-          export XMAKE_ROOT=y
-          xmake config --yes --verbose --plat=linux --arch=x86_64 --toolchain=clang
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 20 all
+          xmake config --yes --verbose --plat=linux --arch=x86_64 --toolchain=clang-20
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
