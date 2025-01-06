@@ -1,4 +1,4 @@
-name: windows
+name: linux
 
 on:
   push:
@@ -6,15 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    container: pagmo2/llvm_manylinux_2_28_x86_64
 
     steps:
-      - name: Setup llvm
-        uses: MinoruSekine/setup-scoop@v4.0.1
-        with:
-          buckets: main
-          apps: llvm
-
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
@@ -25,11 +20,11 @@ jobs:
 
       - name: Package
         run: |
-          xmake config --yes --verbose --plat=windows --arch=x64
+          xmake config --yes --verbose --plat=linux --arch=x86_64 --toolchain=clang
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: x64-windows-msvc
+          name: x86_64-linux-gnu
           path: build/package
           if-no-files-found: error

@@ -30,9 +30,6 @@ package("llvm")
             "-DLLVM_INCLUDE_EXAMPLES=OFF",
             "-DLLVM_INCLUDE_BENCHMARKS=OFF",
 
-            "-DCMAKE_C_COMPILER=clang",
-            "-DCMAKE_CXX_COMPILER=clang++",
-
             "-DLLVM_LINK_LLVM_DYLIB=OFF",
             "-DLLVM_ENABLE_RTTI=OFF",
 
@@ -41,9 +38,14 @@ package("llvm")
 
             "-DCLANG_BUILD_TOOLS=OFF",
             "-DLLVM_BUILD_TOOLS=OFF",
+            "-DLLVM_BUILD_UTILS=OFF",
         }
         table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
+        if package:is_plat("windows") then
+            table.insert(configs, "-DCMAKE_C_COMPILER=clang")
+            table.insert(configs, "-DCMAKE_CXX_COMPILER=clang++")
+        end
 
         local opt = {}
         opt.target = {
