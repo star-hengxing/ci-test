@@ -20,7 +20,9 @@ jobs:
 
       - name: Package
         run: |
-          XMAKE_ROOT=y xmake config --yes --verbose --plat=linux --arch=x86_64 --toolchain=clang
+          export PATH=$PATH:/usr/local/bin
+          export XMAKE_ROOT=y
+          xmake config --yes --verbose --plat=linux --arch=x86_64 --toolchain=clang
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
