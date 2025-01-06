@@ -10,7 +10,7 @@ package("llvm")
     add_configs("runtimes", {description = "Set compiler runtimes.", default = "MD", readonly = true})
     add_configs("debug", {description = "Enable debug symbols.", default = false, type = "boolean", readonly = true})
 
-    add_deps("cmake", "python 3.x", {kind = "binary"})
+    add_deps("cmake", "ninja", "python 3.x", {kind = "binary"})
 
     if is_plat("windows", "mingw") then
         add_syslinks("version", "ntdll")
