@@ -1,0 +1,35 @@
+name: linux
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Package
+        run: |
+          xmake config --yes --verbose --plat=linux --arch=x86_64 --mode=release
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@master
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/package/x86_64-linux-gnu-release.tar.bz2
+          asset_name: build/package/x86_64-linux-gnu-release.tar.bz2
+          tag: ${{ steps.previoustag.outputs.tag }}
+          overwrite: true
