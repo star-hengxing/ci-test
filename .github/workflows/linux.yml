@@ -1,5 +1,8 @@
 name: linux
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ main ]
