@@ -26,7 +26,6 @@ jobs:
           package-cache-key: ${{ matrix.os }}
           build-cache: true
           build-cache-key: ${{ matrix.os }}
-          project-path: '.'
 
       - name: Build
         run: |
