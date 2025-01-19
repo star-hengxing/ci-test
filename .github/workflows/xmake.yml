@@ -24,6 +24,7 @@ jobs:
           package-cache-key: ${{ matrix.os }}
           build-cache: true
           build-cache-key: ${{ matrix.os }}
+          project-path: '.'
 
       - uses: actions/checkout@v4
 
