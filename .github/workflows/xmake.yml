@@ -30,6 +30,6 @@ jobs:
       - name: Build
         run: |
           sudo apt-get update
-          sudo apt-get install -y msitools
+          sudo apt-get install -y msitools python3
           xmake f -y -vD -p windows -a x64 --toolchain=clang
           xmake
