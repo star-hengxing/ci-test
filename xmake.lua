@@ -129,7 +129,7 @@ package("msvc")
 
         local msvc_wine = package:dep("msvc-wine"):installdir()
         os.vrunv("python3", table.join(path.join(msvc_wine, "bin/vsdownload.py"), argv))
-        os.vrunv("sh", {path.join("./", msvc_wine, "bin/install.sh"), package:installdir()})
+        os.vrunv("sh", {path.join(msvc_wine, "bin/install.sh"), package:installdir()})
     end)
 
     on_test(function (package)
