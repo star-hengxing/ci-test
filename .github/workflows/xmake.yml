@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,14 +19,17 @@ jobs:
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
-          xmake-version: branch@master
+          xmake-version: '2.9.8'
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: ${{ matrix.os }}
-          package-cache: true
-          package-cache-key: ${{ matrix.os }}
-          build-cache: true
-          build-cache-key: ${{ matrix.os }}
+          # package-cache: true
+          # package-cache-key: ${{ matrix.os }}
+          # build-cache: true
+          # build-cache-key: ${{ matrix.os }}
 
       - name: Build
         run: |
-          xmake -y -D
+          sudo apt-get update
+          sudo apt-get install -y msitools
+          xmake f -y -vD -p windows -a x64 --toolchain=clang
+          xmake
