@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-11-arm]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
-          xmake-version: '2.9.8'
+          xmake-version: branch@master
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: ${{ matrix.os }}
           # package-cache: true
@@ -29,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          sudo apt-get update
-          sudo apt-get install -y msitools python3
-          xmake f -y -vD -p windows -a x64 --toolchain=clang
-          xmake
+          xmake run -vD
+          xmake f -c -a arm64
+          xmake -vD
+          xmake run
