@@ -10,7 +10,7 @@ package("ktx")
 
     add_versions("v4.4.0", "3585d76edcdcbe3a671479686f8c81c1c10339f419e4b02a9a6f19cc6e4e0612")
 
-    add_patches("4.4.0", "patches/4.4.0/dep-unbundle.patch", "2b883bcbfc19f80d72b812d68b606b6e2a4234d913ad92c45d8030bd94207a59")
+    add_patches("4.4.0", path.join(os.scriptdir(), "patches/4.4.0/dep-unbundle.patch"), "2b883bcbfc19f80d72b812d68b606b6e2a4234d913ad92c45d8030bd94207a59")
 
     add_configs("tools", {description = "Create KTX tools", default = false, type = "boolean"})
     add_configs("decoder", {description = "ETC decoding support", default = false, type = "boolean"})
