@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-11-arm]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
-          xmake-version: branch@master
+          xmake-version: '3.0.0'
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: ${{ matrix.os }}
           # package-cache: true
@@ -29,7 +29,4 @@ jobs:
 
       - name: Build
         run: |
-          xmake run -vD
-          xmake f -c -a arm64
-          xmake -vD
-          xmake run
+          xmake -y -vD
