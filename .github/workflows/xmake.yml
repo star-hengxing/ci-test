@@ -29,4 +29,4 @@ jobs:
 
       - name: Build
         run: |
-          xmake f -c -y -vD
+          xmake f -c -y -v
