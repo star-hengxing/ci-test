@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [macos-15]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
-          xmake-version: '3.0.0'
+          xmake-version: branch@master
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: ${{ matrix.os }}
           # package-cache: true
@@ -29,4 +29,4 @@ jobs:
 
       - name: Build
         run: |
-          xmake -y -vD
+          xmake f -c -y -vD
