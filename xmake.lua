@@ -1,5 +1,10 @@
-add_requires("python >=3.12", {kind = "binary"})
+add_rules("mode.release", "mode.debug", "mode.releasedbg")
 
-target("test")
+target("right")
+    set_kind("binary")
+    add_files("src/*.cpp")
+    set_toolset("dsymutil", "dsymutil")
+
+target("error")
     set_kind("binary")
     add_files("src/*.cpp")
