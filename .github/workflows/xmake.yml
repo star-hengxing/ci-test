@@ -30,3 +30,4 @@ jobs:
       - name: Build
         run: |
           xmake f -c -y -vD -m releasedbg
+          xmake
