@@ -11,6 +11,10 @@ target("right")
         target:add("ldflags", format("-Wl,-object_path_lto,%s_lto.o", target:name()))
     end)
 
+    after_build(function (target)
+        print(os.files(path.join(target:targetdir(), "**")))
+    end)
+
 target("error")
     set_kind("binary")
     add_files("src/*.cpp")
