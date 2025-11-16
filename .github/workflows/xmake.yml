@@ -27,7 +27,16 @@ jobs:
           # build-cache: true
           # build-cache-key: ${{ matrix.os }}
 
-      - name: Build
+      - name: Setup dependencies (MacOS)
+        if: runner.os == 'macOS'
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
         run: |
-          xmake f -c -y -vD -m releasedbg
-          xmake
+          brew install llvm@20 lld@20
+
+      - name: Build
+        shell: bash
+        run: |
+          export PATH="/opt/homebrew/opt/llvm@20/bin:/opt/homebrew/opt/lld@20/bin:$PATH"
+          xmake f -c -y -vD -m releasedbg --toolchain=clang --sdk=/opt/homebrew/opt/llvm@20
+          xmake -vD
